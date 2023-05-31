@@ -1,3 +1,4 @@
+//@ts-check
 //----------------MULTER------------------------------
 import multer from 'multer';
 
@@ -18,14 +19,33 @@ import { fileURLToPath } from 'url';
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 
-import { connect } from 'mongoose';
+//----------------MONGO------------------------------
+import { connect, Schema, model } from 'mongoose';
+import faker from 'faker';
+import { MsgModel } from './DAO/models/msgs.model.js';
 export async function connectMongo() {
   try {
     await connect(
       /* PONER TU STRING ENTERO ACA */
-      'mongodb+srv://guillermofergnani:1RW65A7n2ZPPEMWQ@51380.yhqtnxt.mongodb.net/ecommerce?retryWrites=true&w=majority'
+      'mongodb+srv://guillermofergnani:PONERBIENELPASS@51380.yhqtnxt.mongodb.net/ecommerce?retryWrites=true&w=majority'
     );
-    console.log('plug to mongo!');
+
+    /* (async () => {
+      const messages = [];
+      for (let i = 0; i < 5000; i++) {
+        const message = faker.lorem.sentence();
+        const user = faker.internet.email();
+
+        messages.push({ message, user });
+      }
+
+      try {
+        await MsgModel.insertMany(messages);
+        console.log('Inserted', messages.length, 'messages');
+      } catch (error) {
+        console.error('Error en insert many:', error);
+      }
+    })(); */
   } catch (e) {
     console.log(e);
     throw 'can not connect to the db';
@@ -34,7 +54,6 @@ export async function connectMongo() {
 
 //----------------SOCKET------------------------------
 import { Server } from 'socket.io';
-import { MsgModel } from './DAO/models/msgs.model.js';
 
 export function connectSocket(httpServer) {
   const socketServer = new Server(httpServer);
