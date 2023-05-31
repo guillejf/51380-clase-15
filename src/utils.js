@@ -1,4 +1,3 @@
-//@ts-check
 //----------------MULTER------------------------------
 import multer from 'multer';
 
@@ -30,9 +29,39 @@ export async function connectMongo() {
       ''
     );
 
+    let student = await StudentsModel.find({});
+    console.log(JSON.stringify(student, null, 2));
+    /* let student = await StudentsModel.findOne({ _id: '6477bde9d7627dafa9ea28b2' }); .populate('courses.course');
+    console.log(JSON.stringify(student, null, 2)); */
+
+    /* let student = await StudentsModel.findOne({ _id: '6477be0ac11ecddd0d42aa51' });
+    student.courses.push({ course: '6477c6d4c8f14bc83cca80f1' });
+    let res = await StudentsModel.updateOne({ _id: '6477be0ac11ecddd0d42aa51' }, student);
+    console.log(res); */
+
+    /* const created = CoursesModel.create({
+      topics: ['web', 'software', 'backend'],
+      students: [],
+      title: 'backend',
+      description: 'wonderfull backend course',
+      dificulty: 10,
+      professor: 'guile',
+    }); */
+
+    /* const created = StudentsModel.create({
+      first_name: 'monica',
+      last_name: 'fernanda',
+      email: 'g@g.com',
+      gender: 'femenino',
+      courses: [],
+    }); */
+
+    /* let res = await UserModel.find({ lastName: 'werwrwer' }).explain('executionStats');
+    console.log(res); */
+
     /* (async () => {
       const users = [];
-      for (let i = 0; i < 5000; i++) {
+      for (let i = 0; i < 3000; i++) {
         users.push({
           firstName: faker.name.firstName(),
           lastName: faker.name.lastName(),
@@ -55,7 +84,9 @@ export async function connectMongo() {
 
 //----------------SOCKET------------------------------
 import { Server } from 'socket.io';
-
+import { MsgModel } from './DAO/models/msgs.model.js';
+import { StudentsModel } from './DAO/models/students.model.js';
+import { CoursesModel } from './DAO/models/courses.model.js';
 export function connectSocket(httpServer) {
   const socketServer = new Server(httpServer);
 
