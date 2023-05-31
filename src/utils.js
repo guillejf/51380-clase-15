@@ -22,26 +22,27 @@ export const __dirname = path.dirname(__filename);
 //----------------MONGO------------------------------
 import { connect, Schema, model } from 'mongoose';
 import faker from 'faker';
-import { MsgModel } from './DAO/models/msgs.model.js';
+import { UserModel } from './DAO/models/users.model.js';
 export async function connectMongo() {
   try {
     await connect(
       /* PONER TU STRING ENTERO ACA */
-      'mongodb+srv://guillermofergnani:PONERBIENELPASS@51380.yhqtnxt.mongodb.net/ecommerce?retryWrites=true&w=majority'
+      ''
     );
 
     /* (async () => {
-      const messages = [];
+      const users = [];
       for (let i = 0; i < 5000; i++) {
-        const message = faker.lorem.sentence();
-        const user = faker.internet.email();
-
-        messages.push({ message, user });
+        users.push({
+          firstName: faker.name.firstName(),
+          lastName: faker.name.lastName(),
+          email: faker.internet.email(),
+        });
       }
 
       try {
-        await MsgModel.insertMany(messages);
-        console.log('Inserted', messages.length, 'messages');
+        await UserModel.insertMany(users);
+        console.log('Inserted', users.length, 'users');
       } catch (error) {
         console.error('Error en insert many:', error);
       }
